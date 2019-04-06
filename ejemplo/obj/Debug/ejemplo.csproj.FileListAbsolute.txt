@@ -1,0 +1,14 @@
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\ejemplo.exe.config
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\ejemplo.exe
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\ejemplo.pdb
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csprojAssemblyReference.cache
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Form1.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Properties.Resources.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csproj.GenerateResource.cache
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csproj.CoreCompileInputs.cache
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.exe
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.pdb
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csproj.ResolveComReference.cache
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\itextsharp.dll
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\itextsharp.pdfa.dll
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csproj.CopyComplete
