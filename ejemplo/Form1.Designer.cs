@@ -57,13 +57,13 @@
             this.lNombredelArticulo = new System.Windows.Forms.Label();
             this.lCodigo = new System.Windows.Forms.Label();
             this.tabVer = new System.Windows.Forms.TabPage();
+            this.btnGuardarPDF = new System.Windows.Forms.Button();
+            this.cbxListarCategoria = new System.Windows.Forms.ComboBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnListarNombre = new System.Windows.Forms.Button();
             this.btnListarTodo = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.lVenta = new System.Windows.Forms.Label();
-            this.cbxListarCategoria = new System.Windows.Forms.ComboBox();
-            this.btnGuardarPDF = new System.Windows.Forms.Button();
             this.tabC.SuspendLayout();
             this.tabVenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -239,7 +239,7 @@
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(114, 34);
             this.btnActualizar.TabIndex = 11;
-            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.Text = "Editar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -365,6 +365,25 @@
             this.tabVer.UseVisualStyleBackColor = true;
             this.tabVer.Click += new System.EventHandler(this.tabVer_Click);
             // 
+            // btnGuardarPDF
+            // 
+            this.btnGuardarPDF.Location = new System.Drawing.Point(821, 418);
+            this.btnGuardarPDF.Name = "btnGuardarPDF";
+            this.btnGuardarPDF.Size = new System.Drawing.Size(131, 40);
+            this.btnGuardarPDF.TabIndex = 7;
+            this.btnGuardarPDF.Text = "Guardar PDF";
+            this.btnGuardarPDF.UseVisualStyleBackColor = true;
+            this.btnGuardarPDF.Click += new System.EventHandler(this.btnGuardarPDF_Click);
+            // 
+            // cbxListarCategoria
+            // 
+            this.cbxListarCategoria.FormattingEnabled = true;
+            this.cbxListarCategoria.Location = new System.Drawing.Point(301, 430);
+            this.cbxListarCategoria.Name = "cbxListarCategoria";
+            this.cbxListarCategoria.Size = new System.Drawing.Size(155, 28);
+            this.cbxListarCategoria.TabIndex = 6;
+            this.cbxListarCategoria.Text = "Categorias";
+            // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(684, 418);
@@ -439,25 +458,6 @@
             this.lVenta.Size = new System.Drawing.Size(365, 46);
             this.lVenta.TabIndex = 2;
             this.lVenta.Text = "Ventas de Artículos";
-            // 
-            // cbxListarCategoria
-            // 
-            this.cbxListarCategoria.FormattingEnabled = true;
-            this.cbxListarCategoria.Location = new System.Drawing.Point(301, 430);
-            this.cbxListarCategoria.Name = "cbxListarCategoria";
-            this.cbxListarCategoria.Size = new System.Drawing.Size(155, 28);
-            this.cbxListarCategoria.TabIndex = 6;
-            this.cbxListarCategoria.Text = "Categorias";
-            // 
-            // btnGuardarPDF
-            // 
-            this.btnGuardarPDF.Location = new System.Drawing.Point(821, 418);
-            this.btnGuardarPDF.Name = "btnGuardarPDF";
-            this.btnGuardarPDF.Size = new System.Drawing.Size(131, 40);
-            this.btnGuardarPDF.TabIndex = 7;
-            this.btnGuardarPDF.Text = "Guardar PDF";
-            this.btnGuardarPDF.UseVisualStyleBackColor = true;
-            this.btnGuardarPDF.Click += new System.EventHandler(this.btnGuardarPDF_Click);
             // 
             // Form1
             // 

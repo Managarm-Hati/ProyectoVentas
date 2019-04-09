@@ -21,7 +21,7 @@ using iTextSharp.text;
 
 namespace ejemplo
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form 
     {
 
 
@@ -30,40 +30,83 @@ namespace ejemplo
             InitializeComponent();
         }
 
-        
-        
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            
-
-            if (txtCodigo.Text == "" )
+            Conectarse n = new Conectarse();
+            //if para validar que ningun campoeste vacio
+            if (txtCodigo.Text == "")
             {
                 MessageBox.Show("Ingrese un Registro", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
             else
+
             {
-                
+                if (txtNombreArticulo.Text == "")
+                {
+                    MessageBox.Show("Hace falta el nombre del articulo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
 
-                Conectarse n = new Conectarse();
-                int Codigo = int.Parse(txtCodigo.Text);
-                String nombreArticulo = txtNombreArticulo.Text;
-                int Stock = int.Parse(txtStock.Text);
-                int precioCompra = int.Parse(txtPrecio.Text);
-                String Categoria = txtCategoria.Text;
+                else
 
-              //  n.Existe(Codigo);
+                {
+                    if (txtCategoria.Text == "")
+                    {
+                        MessageBox.Show("Hace falta la cetegoria del producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
 
-                n.GuardarArticulos(Codigo, nombreArticulo, Stock, precioCompra, Categoria);
-                
+                    else
 
-                MessageBox.Show("Registro completado");
+                    {
+                        if (txtStock.Text == "")
+                        {
+                            MessageBox.Show("Hace falta el stock del producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
 
-                txtCodigo.Text = "";
-                txtNombreArticulo.Text = "";
-                txtStock.Text = "";
-                txtPrecio.Text = "";
-                txtCategoria.Text = "";
+                        else
+                        {
+                            if (txtPrecio.Text == "")
+                            {
+                                MessageBox.Show("Porfavor ingrese el precio del producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                           
+                                else
+                                {
+                                
+                                //if para validar si existe el registro
+                                
+                                if (n.Existe(Convert.ToInt32(txtCodigo.Text)))
+                                    {
+                                     
+                                    MessageBox.Show("Este registro ya existe", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    
+                                }
+
+                                    else
+                                    {
+                                    //guardar el articulo
+                                        int Codigo = int.Parse(txtCodigo.Text);
+                                        String nombreArticulo = txtNombreArticulo.Text;
+                                        int Stock = int.Parse(txtStock.Text);
+                                        int precioCompra = int.Parse(txtPrecio.Text);
+                                        String Categoria = txtCategoria.Text;
+                                        n.GuardarArticulos(Codigo, nombreArticulo, Stock, precioCompra, Categoria);
+
+                                        MessageBox.Show("Registro completado");
+
+                                        txtCodigo.Text = "";
+                                        txtNombreArticulo.Text = "";
+                                        txtStock.Text = "";
+                                        txtPrecio.Text = "";
+                                        txtCategoria.Text = "";
+
+                                    }
+                                }
+                            
+                        }
+                    }
+                }
 
             }
         }
@@ -86,6 +129,7 @@ namespace ejemplo
             }
             else
             {
+                
                 Conectarse n = new Conectarse();
                 int Codigo = int.Parse(txtCodigo.Text);
                 String nombreArticulo = txtNombreArticulo.Text;
