@@ -15,7 +15,7 @@ using System.IO;
 using System.Reflection;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
-
+using System.Runtime.InteropServices;
 
 
 
@@ -31,146 +31,21 @@ namespace ejemplo
         }
 
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-            Conectarse n = new Conectarse();
-            //if para validar que ningun campoeste vacio
-            if (txtCodigo.Text == "")
-            {
-                MessageBox.Show("Ingrese un Registro", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            else
-
-            {
-                if (txtNombreArticulo.Text == "")
-                {
-                    MessageBox.Show("Hace falta el nombre del articulo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-
-                else
-
-                {
-                    if (txtCategoria.Text == "")
-                    {
-                        MessageBox.Show("Hace falta la cetegoria del producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-
-                    else
-
-                    {
-                        if (txtStock.Text == "")
-                        {
-                            MessageBox.Show("Hace falta el stock del producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-
-                        else
-                        {
-                            if (txtPrecio.Text == "")
-                            {
-                                MessageBox.Show("Porfavor ingrese el precio del producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            }
-                           
-                                else
-                                {
-                                
-                                //if para validar si existe el registro
-                                
-                                if (n.Existe(Convert.ToInt32(txtCodigo.Text)))
-                                    {
-                                     
-                                    MessageBox.Show("Este registro ya existe", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                    
-                                }
-
-                                    else
-                                    {
-                                    //guardar el articulo
-                                        int Codigo = int.Parse(txtCodigo.Text);
-                                        String nombreArticulo = txtNombreArticulo.Text;
-                                        int Stock = int.Parse(txtStock.Text);
-                                        int precioCompra = int.Parse(txtPrecio.Text);
-                                        String Categoria = txtCategoria.Text;
-                                        n.GuardarArticulos(Codigo, nombreArticulo, Stock, precioCompra, Categoria);
-
-                                        MessageBox.Show("Registro completado");
-
-                                        txtCodigo.Text = "";
-                                        txtNombreArticulo.Text = "";
-                                        txtStock.Text = "";
-                                        txtPrecio.Text = "";
-                                        txtCategoria.Text = "";
-
-                                    }
-                                }
-                            
-                        }
-                    }
-                }
-
-            }
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Conectarse conexion = new Conectarse();
             conexion.abrir();
-            conexion.llenarComboBox(cbxListarCategoria);
-
-
+            mostrarlogo();
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        #region funcionalidades del formulario
+
+        private void mostrarlogo()
         {
-            if (txtCodigo.Text == "")
-            {
-                MessageBox.Show("Dato no actualizado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                
-                Conectarse n = new Conectarse();
-                int Codigo = int.Parse(txtCodigo.Text);
-                String nombreArticulo = txtNombreArticulo.Text;
-                int Stock = int.Parse(txtStock.Text);
-                int precioCompra = int.Parse(txtPrecio.Text);
-                String categoria = txtCategoria.Text;
-
-
-                n.actualizarArticulo(Codigo, nombreArticulo, Stock, precioCompra, categoria);
-
-                MessageBox.Show("Dato actualizado");
-
-                txtCodigo.Text = "";
-                txtNombreArticulo.Text = "";
-                txtStock.Text = "";
-                txtPrecio.Text = "";
-                txtCategoria.Text = "";
-            }
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (txtCodigo.Text == "")
-            {
-                MessageBox.Show("Dato no eliminado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                Conectarse n = new Conectarse();
-                int Codigo = int.Parse(txtCodigo.Text);
-
-
-
-                n.eliminarArticulo(Codigo);
-
-                MessageBox.Show("Dato eliminado");
-
-                txtCodigo.Text = "";
-
-            }
-
+            AbrirFormulario<Inicial>();
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -191,41 +66,6 @@ namespace ejemplo
           // dataGridView2.Columns("ValorCompra").DefaultCellStyle.Format = "C2";
         }
 
-        private void btnListarTodo_Click(object sender, EventArgs e)
-        {
-            Conectarse n = new Conectarse();
-            
-            n.listarTodo(dataGridView2);
-            dataGridView2.Columns[0].HeaderText = "Codigo";
-            dataGridView2.Columns[1].HeaderText = "Nombre Articulo";
-            dataGridView2.Columns[2].HeaderText = "Stock";
-            dataGridView2.Columns[3].HeaderText = "Precio";
-            dataGridView2.Columns[4].HeaderText = "Fecha de Registro";
-            dataGridView2.Columns[5].HeaderText = "Categoria";
-
-            this.dataGridView2.Columns[3].DefaultCellStyle.Format = "c";
-
-
-        }
-
-        private void btnListarNombre_Click(object sender, EventArgs e)
-        {
-            if (cbxListarCategoria.Text == "")
-            {
-                MessageBox.Show("Campo vacio", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                Conectarse n = new Conectarse();              
-              //  int Codigo = int.Parse(txtBuscador.Text);
-                String Categoria =  cbxListarCategoria.Text;
-
-                n.listarNombre(dataGridView2,Categoria);  
-                
-            }
-            
-            
-        }
 
         private void tbRegistrar_Click(object sender, EventArgs e)
         {
@@ -260,220 +100,139 @@ namespace ejemplo
                 return;
             }
         }
+  
 
-        private void txtCategoria_KeyPress(object sender, KeyPressEventArgs e)
+        private void btnSalir_Click(object sender, EventArgs e)
         {
-            // Primera letra mayuscula
-            if (txtCategoria.Text.Length == 0)
 
-                e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
-
-            else if (txtCategoria.Text.Length > 0)
-
-                e.KeyChar = e.KeyChar.ToString().ToLower().ToCharArray()[0];
-
-
-
-            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) &&  !(char.IsWhiteSpace(e.KeyChar))  )
+            if (MessageBox.Show("Seguro desea cerrar?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                MessageBox.Show("Solo se permiten letras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Handled = true;
-                return;
+                Application.Exit();
             }
+            else {
+
+            }
+           
+
+        }
+
+        private void BtnMaximizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            BtnMaximizar.Visible = false;
+            btnRestaurar.Visible = true;
+        }
+
+        private void btnRestaurar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            btnRestaurar.Visible = false;
+            BtnMaximizar.Visible = true;
             
-
         }
 
-        private void txtStock_KeyPress(object sender, KeyPressEventArgs e)
+        private void btnMinimizar_Click(object sender, EventArgs e)
         {
-
-
-            //Para obligar a que sólo se introduzcan números 
-            if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-
-            }
-            else
-              if (Char.IsControl(e.KeyChar)) //permitir teclas de control como retroceso 
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                //el resto de teclas pulsadas se desactivan 
-                e.Handled = true;
-                return;
-            }
+            this.WindowState = FormWindowState.Minimized;
         }
 
-        private void txtPrecio_Validated(object sender, EventArgs e)
+        private void button1_Click_2(object sender, EventArgs e)
         {
-          //  txtPrecio.Text = Format(txtPrecio, "$#,##0.00");
+
+            AbrirFormulario<Inicio>();
+            btnventa.BackColor = Color.FromArgb(34, 41, 54);
         }
 
-        private void txtBuscador_TextChanged(object sender, EventArgs e)
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        private void Barratitulo_MouseDown(object sender, MouseEventArgs e)
         {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<nuevoProduct>();
+            btnNuevo.BackColor = Color.FromArgb(34, 41, 54);
 
         }
 
       
 
-        private void dataGridView2_ColumnHeaderCellChanged(object sender, DataGridViewColumnEventArgs e)
-        {
-            
-        }
-
-        private void dataGridView2_ColumnNameChanged(object sender, DataGridViewColumnEventArgs e)
-        {
-           
-            
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void panelContenedor_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void txtNombreArticulo_TextChanged(object sender, EventArgs e)
+        private void btnVerProduct_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario<verProductos>();
+            btnVerProduct.BackColor = Color.FromArgb(34, 41, 54);
         }
 
-        private void txtNombreArticulo_KeyPress(object sender, KeyPressEventArgs e)
+        protected override void WndProc(ref Message msj)
         {
-            // Primera letra mayuscula
-            if (txtNombreArticulo.Text.Length == 0)
-
-                e.KeyChar = e.KeyChar.ToString().ToUpper().ToCharArray()[0];
-
-            else if (txtNombreArticulo.Text.Length > 0)
-
-                e.KeyChar = e.KeyChar.ToString().ToLower().ToCharArray()[0];
-        }
-
-        private void txtCategoria_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //Para obligar a que sólo se introduzcan números 
-            if (Char.IsDigit(e.KeyChar))
+            const int CoordenadaWFP = 0x84; //ibicacion de la parte derecha inferior del form
+            const int DesIzquierda = 16;
+            const int DesDerecha = 17;
+            if (msj.Msg == CoordenadaWFP)
             {
-                e.Handled = false;
-
-            }
-            else
-              if (Char.IsControl(e.KeyChar)) //permitir teclas de control como retroceso 
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                //el resto de teclas pulsadas se desactivan 
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Conectarse n = new Conectarse();
-            n.ExportarExcel(dataGridView2);
-        }
-
-        private void tabVer_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        public void ExportarPDF(DataGridView dgv, string filename)
-        {
-            
-            //Creating iTextSharp Table from the DataTable data
-            PdfPTable pdfTable = new PdfPTable(dataGridView2.ColumnCount);
-            pdfTable.DefaultCell.Padding = 3;
-           pdfTable.WidthPercentage = 100;
-            pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
-            pdfTable.DefaultCell.BorderWidth = 1;
-
-            BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.EMBEDDED);
-
-                iTextSharp.text.Font pTipoLetra = iTextSharp.text.FontFactory.GetFont(FontFactory.COURIER, 13);
-
-            
-
-
-            //Adding Header row
-            foreach (DataGridViewColumn column in dataGridView2.Columns)
-            {
-                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
-
-                cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
-
-                pdfTable.AddCell(cell);
-
-            }
-
-            //Adding DataRow
-            foreach (DataGridViewRow row in dgv.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
+                int x = (int)(msj.LParam.ToInt64() & 0xFFFF);
+                int y = (int)((msj.LParam.ToInt64() & 0xFFFF0000) >> 16);
+                Point CoordenadaArea = PointToClient(new Point(x, y));
+                Size TamañoAreaForm = ClientSize;
+                if (CoordenadaArea.X >= TamañoAreaForm.Width - 16 && CoordenadaArea.Y >= TamañoAreaForm.Height - 16 && TamañoAreaForm.Height >= 16)
                 {
-
-                    pdfTable.AddCell(cell.Value.ToString());
+                    msj.Result = (IntPtr)(IsMirrored ? DesIzquierda : DesDerecha);
+                    return;
                 }
             }
+            base.WndProc(ref msj);
+        }
 
-            //Agregar datos al principio de pagina PDF
+        #endregion 
 
-            var espacioBlanco = new Paragraph("")
+        //Metodo abrir formulario dentro del panel
+
+        private void AbrirFormulario<MiForm>() where MiForm : Form, new()
+        {
+            Form formulario;
+            formulario = panelContenedor.Controls.OfType<MiForm>().FirstOrDefault();//Busca en al coleccion en el formulario
+            //si el formulario/instancia no existe
+            if (formulario == null)
             {
-               SpacingBefore = 10f,
-               SpacingAfter=10f,
-
-            };
-
-            string remito = "Nombre: Reporte de Articulos";
-            string envio = "Fecha: " + DateTime.Now.ToString();
-
-            //Exporting to PDF
-            var savefiledialoge = new SaveFileDialog();
-            savefiledialoge.FileName = "Reporte de articulos"; 
-            savefiledialoge.DefaultExt = ".pdf";
-
-            if (savefiledialoge.ShowDialog() == DialogResult.OK)
+                formulario = new MiForm();
+                formulario.TopLevel = false;
+                panelContenedor.Controls.Add(formulario);
+                formulario.Dock = DockStyle.Fill;
+                panelContenedor.Tag = formulario;
+                formulario.Show();
+                formulario.BringToFront();
+                formulario.FormClosed += new FormClosedEventHandler(CloseForms);
+            }
+            else
             {
-
-                using (FileStream stream = new FileStream(savefiledialoge.FileName, FileMode.Create))
-                {
-                    Document pdfDoc = new Document(PageSize.A2, 10f, 10f, 10f, 0f);
-                    PdfWriter.GetInstance(pdfDoc, stream);
-
-                    pdfDoc.Open();
-                    pdfDoc.Add(new Paragraph(remito,FontFactory.GetFont("ARIAL",15)));
-                    pdfDoc.Add(new Paragraph(envio, FontFactory.GetFont("ARIAL",15)));
-                    pdfDoc.Add(espacioBlanco);
-                    pdfDoc.Add(pdfTable);
-                    pdfDoc.Close();
-                    stream.Close();
-                    MessageBox.Show("Registros exportados a PDF");
-                }
-
+                formulario.BringToFront();
             }
         }
 
-        private void btnGuardarPDF_Click(object sender, EventArgs e)
+        private void CloseForms(object sender, FormClosedEventArgs e)
         {
+            if (Application.OpenForms["Inicio"] == null)
+                btnventa.BackColor = Color.FromArgb(22, 27, 36);
 
-            ExportarPDF(dataGridView2, "test");
-           
+            if (Application.OpenForms["nuevoProduct"] == null)
+                btnNuevo.BackColor = Color.FromArgb(22, 27, 36);
+
+            if (Application.OpenForms["verProductos"] == null)
+                btnVerProduct.BackColor = Color.FromArgb(22, 27, 36);
         }
+
+        
     }
 }

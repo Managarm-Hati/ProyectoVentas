@@ -46,11 +46,10 @@ namespace ejemplo
         //validar si un producto existe o no
         public bool Existe(int Codigo)
         {
-
             conectarbd.Open();
             SqlCommand cmd;
-            cmd = new SqlCommand("SELECT  COUNT(1) FROM tableVentas WHERE  Codigo =" + Codigo + "", conectarbd);
-            cmd.Parameters.AddWithValue("Codigo", Codigo);
+            cmd = new SqlCommand("SELECT COUNT(1) FROM tableVentas WHERE  Codigo =" + Codigo + "", conectarbd);
+            cmd.Parameters.AddWithValue("Codigo", Codigo);      
             cmd.ExecuteNonQuery();           
             int count = Convert.ToInt32(cmd.ExecuteScalar());
          
@@ -58,9 +57,9 @@ namespace ejemplo
                 return false;
             else
                 return true;
-
-            
+          
         }
+
 
 
 
@@ -71,16 +70,16 @@ namespace ejemplo
             cmd = new SqlCommand("INSERT INTO tableVentas(Codigo,nombreArticulo,Stock,precioCompra,fechaRegistro,Categoria) values(" + Codigo + ",'" + nombreArticulo + "'," + Stock + ", " + precioCompra + ",GETDATE(),'" + Categoria + "')", conectarbd);
             cmd.ExecuteNonQuery();           
 
-            conectarbd.Close();
+            
         }
 
         public void actualizarArticulo(int Codigo, string nombreArticulo, int Stock, int precioCompra, string Categoria)
         {
-            conectarbd.Open();
+            
             SqlCommand cmd;
             cmd = new SqlCommand("UPDATE tableVentas set nombreArticulo='" + nombreArticulo + "',Stock=" + Stock + ",precioCompra=" + precioCompra + ",fechaRegistro=GETDATE(), Categoria ='" + Categoria + "' where Codigo=" + Codigo + "", conectarbd);
             cmd.ExecuteNonQuery();
-            conectarbd.Close();
+            
 
         }
 
@@ -90,7 +89,6 @@ namespace ejemplo
             SqlCommand cmd;
             cmd = new SqlCommand("DELETE FROM tableVentas where codigo=" + Codigo + "", conectarbd);
             cmd.ExecuteNonQuery();
-            conectarbd.Close();
         }
 
         public void listarTodo(DataGridView dgv)
@@ -112,6 +110,7 @@ namespace ejemplo
 
         }
 
+
         public void listarNombre(DataGridView dgv, string Categoria)
         {
             try
@@ -128,6 +127,25 @@ namespace ejemplo
             }
 
         }
+
+        public void venderProducto(int Codigo,string nombreProducto,int Stock, int precioCompra,string Categoria)
+        { 
+               try
+            {
+
+                conectarbd.Open();
+                SqlCommand cmd;
+                cmd = new SqlCommand("Select * from tableVentas where Codigo = " + Codigo + "", conectarbd);
+                cmd.ExecuteNonQuery();
+                          
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se obtuvieron los datos" + ex.ToString());
+
+            }
+        }
+
 
         public void llenarComboBox(ComboBox cb)
         {

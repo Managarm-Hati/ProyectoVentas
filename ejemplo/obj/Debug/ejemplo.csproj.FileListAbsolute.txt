@@ -12,3 +12,9 @@ F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csproj.ResolveComR
 F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\itextsharp.dll
 F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\itextsharp.pdfa.dll
 F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.csproj.CopyComplete
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Inicio.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.nuevoProduct.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Inicial.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.verProductos.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
+F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
