@@ -33,6 +33,7 @@ namespace ejemplo
             conexion.abrir();
             conexion.llenarComboBox(cbxListarCategoria);
             listarAutomatico();
+            this.dataGridView2.Columns["ID"].Visible = false;
         }
 
         private void listarAutomatico()

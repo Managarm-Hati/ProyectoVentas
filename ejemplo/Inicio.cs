@@ -42,10 +42,6 @@ namespace ejemplo
 
         private void txtAgrePorCode_TextChanged(object sender, EventArgs e)
         {
-
-            
-
-
         }
 
         DataTable table = new DataTable();
@@ -54,32 +50,58 @@ namespace ejemplo
         {
             table.Columns.Add("Codigo", typeof(int));
             table.Columns.Add("Nombre", typeof(string));
-            table.Columns.Add("Stock", typeof(int));
-            table.Columns.Add("Precio", typeof(int));
             table.Columns.Add("Categoria", typeof(string));
+            table.Columns.Add("Cantidad", typeof(int));
+            table.Columns.Add("Precio", typeof(int));           
+            table.Columns.Add("Total", typeof(string));
+
 
             dataGridViewVenta.DataSource = table;
+        
         }
 
+ 
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
             try
             {
+
                 table.Rows.Add(Convert.ToInt32(txtAgrePorCode.Text), txtAgreNombre.Text, Convert.ToInt32(txtAgreStock.Text), Convert.ToInt32(txtAgrePrecio.Text), txtAgreCategoria.Text);
+           
+
+                foreach (DataGridViewRow rowMulti in dataGridViewVenta.Rows)
+                {
+
+                    rowMulti.Cells["Total"].Value = (Convert.ToDecimal(rowMulti.Cells["Stock"].Value) * Convert.ToDecimal(rowMulti.Cells["Precio"].Value)); 
+              
+                }
+
+
+                int suma = 0;
+                foreach (DataGridViewRow row in dataGridViewVenta.Rows)
+                {
+                    suma += Convert.ToInt32(row.Cells["Total"].Value);
+                }
+
+                lPrecio.Text = suma.ToString();
+
+
                 dataGridViewVenta.DataSource = table;
-            }
+
+
+        }
             catch
             {
                 MessageBox.Show("Hay campos vacios", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-        }
+}
 
         private void dataGridViewVenta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
           
         }
 
-      
+
         private void btnAgreBuscar_Click(object sender, EventArgs e)
         {
             conectarbd.Open();
@@ -130,23 +152,122 @@ namespace ejemplo
                 if (MessageBox.Show("Desea quitar este articulo?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     dataGridViewVenta.Rows.Remove(dataGridViewVenta.CurrentRow);
-                 
-                }
-               
 
+
+                        int suma = 0;
+                        foreach (DataGridViewRow row in dataGridViewVenta.Rows)
+                        {
+                            suma += Convert.ToInt32(row.Cells["Total"].Value);
+                        }
+
+                        lPrecio.Text = suma.ToString();
+                     lblVuelto.Text = "0";
+
+                }
             }
+        }
+
+        
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+           
+
+            if (MessageBox.Show("Ingresar otra Compra?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                txtAgrePorCode.Text = "0";
+                txtAgreNombre.Text = "0";
+                txtAgreCategoria.Text = "0";
+                txtAgrePrecio.Text = "0";
+                txtAgreStock.Text = "0";
+                
+
+                table.Clear();
+                lblVuelto.Text = "0";
+                lPrecio.Text = "0";
+                textBox1.Text = "0";
+                lblNumeroVenta.Text = (Convert.ToInt32(lblNumeroVenta.Text) + 1).ToString();
+            }
+         
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 
-  
-      
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void btnCerrarCaja_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Quiere Cerrar caja?, se reiniciara todo", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                txtAgrePorCode.Text = "0";
+                txtAgreNombre.Text = "0";
+                txtAgreCategoria.Text = "0";
+                txtAgrePrecio.Text = "0";
+                txtAgreStock.Text = "0";
+
+
+                table.Clear();
+                table.Clear();
+                lblVuelto.Text = "0";
+                lPrecio.Text = "0";
+                textBox1.Text = "0";
+                lblNumeroVenta.Text = "0";
+            }
+
+            
+        }
+
+        public class NegativeException : Exception
+        {
+            public NegativeException(string Nombre)
+                : base(Nombre)
+            {
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
-            if (MessageBox.Show("Se limpiara todo", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+              
+
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+            int suma = 0;
+            foreach (DataGridViewRow row in dataGridViewVenta.Rows)
             {
-                table.Clear();
+                suma += Convert.ToInt32(row.Cells["Total"].Value);
+
+
             }
+
+            try
+            {
+
+                lblVuelto.Text = (Convert.ToInt32(textBox1.Text) - suma).ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Coloque el monto con el que paga el cliente, no puede quedar vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            try
+            {
+                int resta = Convert.ToInt32(lblVuelto.Text);
+                if (resta < 0) throw new NegativeException(string.Format("Faltan {0:C} para pagar el total", resta * -1));
+            }
+            catch (NegativeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
 
         }
     }

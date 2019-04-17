@@ -49,15 +49,15 @@ namespace ejemplo
             conectarbd.Open();
             SqlCommand cmd;
             cmd = new SqlCommand("SELECT COUNT(1) FROM tableVentas WHERE  Codigo =" + Codigo + "", conectarbd);
-            cmd.Parameters.AddWithValue("Codigo", Codigo);      
-            cmd.ExecuteNonQuery();           
+            cmd.Parameters.AddWithValue("Codigo", Codigo);
+            cmd.ExecuteNonQuery();
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-         
+
             if (count == 0)
                 return false;
             else
                 return true;
-          
+
         }
 
 
@@ -65,21 +65,21 @@ namespace ejemplo
 
         public void GuardarArticulos(int Codigo, string nombreArticulo, int Stock, int precioCompra, string Categoria)
         {
-            
+
             SqlCommand cmd;
             cmd = new SqlCommand("INSERT INTO tableVentas(Codigo,nombreArticulo,Stock,precioCompra,fechaRegistro,Categoria) values(" + Codigo + ",'" + nombreArticulo + "'," + Stock + ", " + precioCompra + ",GETDATE(),'" + Categoria + "')", conectarbd);
-            cmd.ExecuteNonQuery();           
+            cmd.ExecuteNonQuery();
 
-            
+
         }
 
         public void actualizarArticulo(int Codigo, string nombreArticulo, int Stock, int precioCompra, string Categoria)
         {
-            
+
             SqlCommand cmd;
             cmd = new SqlCommand("UPDATE tableVentas set nombreArticulo='" + nombreArticulo + "',Stock=" + Stock + ",precioCompra=" + precioCompra + ",fechaRegistro=GETDATE(), Categoria ='" + Categoria + "' where Codigo=" + Codigo + "", conectarbd);
             cmd.ExecuteNonQuery();
-            
+
 
         }
 
@@ -128,16 +128,16 @@ namespace ejemplo
 
         }
 
-        public void venderProducto(int Codigo,string nombreProducto,int Stock, int precioCompra,string Categoria)
-        { 
-               try
+        public void venderProducto(int Codigo, string nombreProducto, int Stock, int precioCompra, string Categoria)
+        {
+            try
             {
 
                 conectarbd.Open();
                 SqlCommand cmd;
                 cmd = new SqlCommand("Select * from tableVentas where Codigo = " + Codigo + "", conectarbd);
                 cmd.ExecuteNonQuery();
-                          
+
             }
             catch (Exception ex)
             {
@@ -220,7 +220,28 @@ namespace ejemplo
             }
         }
 
-        
 
-    } 
+        public void autoCompletar(TextBox cajatexto)
+        {
+            try
+            {
+                SqlCommand cmd;
+                cmd = new SqlCommand("Select Categoria from tableVentas", conectarbd);
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    cajatexto.AutoCompleteCustomSource.Add(dr["Categoria"].ToString());
+                }
+                dr.Close();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se Autocompleto el texto" + ex.ToString());
+
+            }
+        }
+
+
+    }
 }

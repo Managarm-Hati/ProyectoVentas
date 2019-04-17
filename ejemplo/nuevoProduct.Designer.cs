@@ -45,14 +45,14 @@
             this.dataGridViewAgregar = new System.Windows.Forms.DataGridView();
             this.btnEditar = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
-            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape6 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape5 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape2 = new Microsoft.VisualBasic.PowerPacks.LineShape();
+            this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnRegistrar = new System.Windows.Forms.Button();
-            this.lineShape3 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape5 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.lineShape6 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAgregar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -61,6 +61,8 @@
             // txtCategoria
             // 
             this.txtCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCategoria.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.txtCategoria.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
             this.txtCategoria.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCategoria.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -70,6 +72,7 @@
             this.txtCategoria.Name = "txtCategoria";
             this.txtCategoria.Size = new System.Drawing.Size(147, 19);
             this.txtCategoria.TabIndex = 20;
+            this.txtCategoria.TextChanged += new System.EventHandler(this.txtCategoria_TextChanged);
             this.txtCategoria.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCategoria_KeyPress);
             // 
             // lCategoria
@@ -237,6 +240,7 @@
             this.dataGridViewAgregar.Location = new System.Drawing.Point(21, 41);
             this.dataGridViewAgregar.MultiSelect = false;
             this.dataGridViewAgregar.Name = "dataGridViewAgregar";
+            this.dataGridViewAgregar.ReadOnly = true;
             this.dataGridViewAgregar.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridViewAgregar.RowHeadersVisible = false;
             this.dataGridViewAgregar.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
@@ -247,6 +251,7 @@
             this.dataGridViewAgregar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAgregar.Size = new System.Drawing.Size(657, 453);
             this.dataGridViewAgregar.TabIndex = 28;
+            this.dataGridViewAgregar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAgregar_CellContentClick);
             // 
             // btnEditar
             // 
@@ -282,13 +287,49 @@
             this.shapeContainer1.TabIndex = 30;
             this.shapeContainer1.TabStop = false;
             // 
-            // lineShape1
+            // lineShape6
             // 
-            this.lineShape1.Name = "lineShape1";
-            this.lineShape1.X1 = 602;
-            this.lineShape1.X2 = 677;
-            this.lineShape1.Y1 = 168;
-            this.lineShape1.Y2 = 191;
+            this.lineShape6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            this.lineShape6.Name = "lineShape6";
+            this.lineShape6.SelectionColor = System.Drawing.Color.White;
+            this.lineShape6.X1 = 855;
+            this.lineShape6.X2 = 970;
+            this.lineShape6.Y1 = 278;
+            this.lineShape6.Y2 = 278;
+            // 
+            // lineShape5
+            // 
+            this.lineShape5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            this.lineShape5.Name = "lineShape5";
+            this.lineShape5.SelectionColor = System.Drawing.Color.White;
+            this.lineShape5.X1 = 855;
+            this.lineShape5.X2 = 896;
+            this.lineShape5.Y1 = 227;
+            this.lineShape5.Y2 = 227;
+            // 
+            // lineShape4
+            // 
+            this.lineShape4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            this.lineShape4.Name = "lineShape4";
+            this.lineShape4.SelectionColor = System.Drawing.Color.White;
+            this.lineShape4.X1 = 853;
+            this.lineShape4.X2 = 998;
+            this.lineShape4.Y1 = 182;
+            this.lineShape4.Y2 = 182;
+            // 
+            // lineShape3
+            // 
+            this.lineShape3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            this.lineShape3.Name = "lineShape3";
+            this.lineShape3.SelectionColor = System.Drawing.Color.White;
+            this.lineShape3.X1 = 853;
+            this.lineShape3.X2 = 1048;
+            this.lineShape3.Y1 = 134;
+            this.lineShape3.Y2 = 134;
             // 
             // lineShape2
             // 
@@ -300,6 +341,14 @@
             this.lineShape2.X2 = 981;
             this.lineShape2.Y1 = 94;
             this.lineShape2.Y2 = 94;
+            // 
+            // lineShape1
+            // 
+            this.lineShape1.Name = "lineShape1";
+            this.lineShape1.X1 = 602;
+            this.lineShape1.X2 = 677;
+            this.lineShape1.Y1 = 168;
+            this.lineShape1.Y2 = 191;
             // 
             // btnActualizar
             // 
@@ -337,50 +386,6 @@
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = false;
             this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
-            // 
-            // lineShape3
-            // 
-            this.lineShape3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lineShape3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            this.lineShape3.Name = "lineShape3";
-            this.lineShape3.SelectionColor = System.Drawing.Color.White;
-            this.lineShape3.X1 = 853;
-            this.lineShape3.X2 = 1048;
-            this.lineShape3.Y1 = 134;
-            this.lineShape3.Y2 = 134;
-            // 
-            // lineShape4
-            // 
-            this.lineShape4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lineShape4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            this.lineShape4.Name = "lineShape4";
-            this.lineShape4.SelectionColor = System.Drawing.Color.White;
-            this.lineShape4.X1 = 853;
-            this.lineShape4.X2 = 998;
-            this.lineShape4.Y1 = 182;
-            this.lineShape4.Y2 = 182;
-            // 
-            // lineShape5
-            // 
-            this.lineShape5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lineShape5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            this.lineShape5.Name = "lineShape5";
-            this.lineShape5.SelectionColor = System.Drawing.Color.White;
-            this.lineShape5.X1 = 855;
-            this.lineShape5.X2 = 896;
-            this.lineShape5.Y1 = 227;
-            this.lineShape5.Y2 = 227;
-            // 
-            // lineShape6
-            // 
-            this.lineShape6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lineShape6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            this.lineShape6.Name = "lineShape6";
-            this.lineShape6.SelectionColor = System.Drawing.Color.White;
-            this.lineShape6.X1 = 855;
-            this.lineShape6.X2 = 970;
-            this.lineShape6.Y1 = 278;
-            this.lineShape6.Y2 = 278;
             // 
             // pictureBox1
             // 

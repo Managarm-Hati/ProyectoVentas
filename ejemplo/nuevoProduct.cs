@@ -33,6 +33,7 @@ namespace ejemplo
             Conectarse conexion = new Conectarse();
             conexion.abrir();
             mostrarDatos();
+            conexion.autoCompletar(txtCategoria);
         }
 
         #region Botones y validaciones
@@ -352,6 +353,9 @@ namespace ejemplo
             this.dataGridViewAgregar.Columns[3].DefaultCellStyle.Format = "c";
 
             dataGridViewAgregar.EnableHeadersVisualStyles = false;
+
+            this.dataGridViewAgregar.Columns["ID"].Visible = false;
+            
         }
 
         private void tabVer_Click(object sender, EventArgs e)
@@ -359,11 +363,21 @@ namespace ejemplo
 
         }
 
-        
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dataGridViewAgregar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+      
+
+        private void txtCategoria_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
