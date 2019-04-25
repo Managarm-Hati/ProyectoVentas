@@ -60,7 +60,23 @@ namespace ejemplo
 
         }
 
+        public bool stockDisponible(int Stock)
+        {
+            conectarbd.Open();
+            SqlCommand cmd;
+            cmd = new SqlCommand("SELECT COUNT(1) FROM tableVentas WHERE  Stock =" + Stock + "", conectarbd);
+            cmd.Parameters.AddWithValue("Stock", Stock);
+            cmd.ExecuteNonQuery();
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
 
+            if (count == 0)
+                return false;
+            else
+                return true;
+
+        }
+
+   
 
 
         public void GuardarArticulos(int Codigo, string nombreArticulo, int Stock, int precioCompra, string Categoria)
@@ -89,6 +105,23 @@ namespace ejemplo
             SqlCommand cmd;
             cmd = new SqlCommand("DELETE FROM tableVentas where codigo=" + Codigo + "", conectarbd);
             cmd.ExecuteNonQuery();
+        }
+
+        public void actualizarStock()
+        {
+            conectarbd.Open();
+            try
+            {
+                cmd = new SqlCommand("UPDATE p SET p.Stock = (p.Stock - v.stock_cantidad) FROM tableVentas P INNER JOIN Ventas V ON (P.Codigo = V.id_Codigo)", conectarbd);
+                cmd.ExecuteNonQuery();
+
+             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No hay stock" + ex.ToString());
+
+            }
+            conectarbd.Close();
         }
 
         public void listarTodo(DataGridView dgv)
@@ -241,6 +274,8 @@ namespace ejemplo
 
             }
         }
+
+       
 
 
     }

@@ -354,7 +354,7 @@ namespace ejemplo
 
             dataGridViewAgregar.EnableHeadersVisualStyles = false;
 
-            this.dataGridViewAgregar.Columns["ID"].Visible = false;
+          
             
         }
 
@@ -378,6 +378,11 @@ namespace ejemplo
         private void txtCategoria_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void btnActualizarLista_Click(object sender, EventArgs e)
+        {
+            mostrarDatos();
         }
     }
 }

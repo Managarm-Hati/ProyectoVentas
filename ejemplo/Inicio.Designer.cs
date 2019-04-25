@@ -57,8 +57,8 @@
             this.lblNumeroVenta = new System.Windows.Forms.Label();
             this.btnCerrarCaja = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.txbCanidad = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVenta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -330,7 +330,7 @@
             this.lblNumeroVenta.Name = "lblNumeroVenta";
             this.lblNumeroVenta.Size = new System.Drawing.Size(21, 23);
             this.lblNumeroVenta.TabIndex = 37;
-            this.lblNumeroVenta.Text = "0";
+            this.lblNumeroVenta.Text = "1";
             // 
             // btnCerrarCaja
             // 
@@ -352,6 +352,14 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // txbCanidad
+            // 
+            this.txbCanidad.Location = new System.Drawing.Point(615, 133);
+            this.txbCanidad.Name = "txbCanidad";
+            this.txbCanidad.Size = new System.Drawing.Size(39, 20);
+            this.txbCanidad.TabIndex = 41;
+            this.txbCanidad.TextChanged += new System.EventHandler(this.txbCanidad_TextChanged);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -364,20 +372,13 @@
             this.label8.Text = "Cantidad";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(615, 133);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(39, 20);
-            this.textBox2.TabIndex = 41;
-            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(1080, 603);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txbCanidad);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnCerrarCaja);
@@ -448,7 +449,7 @@
         private System.Windows.Forms.Label lblNumeroVenta;
         private System.Windows.Forms.Button btnCerrarCaja;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.TextBox txbCanidad;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox2;
     }
 }

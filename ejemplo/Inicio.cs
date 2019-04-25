@@ -22,6 +22,7 @@ namespace ejemplo
         SqlDataAdapter da;
         SqlDataReader dr;
         DataTable dt;
+       
         private string idCodigo = null;
 
         string cadena = "Data Source=localhost;Initial Catalog=negocio;Integrated Security=True";
@@ -48,6 +49,7 @@ namespace ejemplo
 
         private void Inicio_Load(object sender, EventArgs e)
         {
+            dataGridViewVenta.AllowUserToAddRows = false;
             table.Columns.Add("Codigo", typeof(int));
             table.Columns.Add("Nombre", typeof(string));
             table.Columns.Add("Categoria", typeof(string));
@@ -63,16 +65,34 @@ namespace ejemplo
  
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
+ 
             try
             {
+                int restaStock;
+                restaStock = int.Parse(txtAgreStock.Text) - int.Parse(txbCanidad.Text);
+                if (restaStock < 0)
+                {
+                    MessageBox.Show("No hay suficiente Stock", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                { 
+                if (Convert.ToInt32(txtAgreStock.Text) == 0)
+                {
 
-                table.Rows.Add(Convert.ToInt32(txtAgrePorCode.Text), txtAgreNombre.Text, Convert.ToInt32(txtAgreStock.Text), Convert.ToInt32(txtAgrePrecio.Text), txtAgreCategoria.Text);
-           
+                    MessageBox.Show("No hay Stock", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                }
+                else
+                {                  
+
+                table.Rows.Add(Convert.ToInt32(txtAgrePorCode.Text), txtAgreNombre.Text, txtAgreCategoria.Text, Convert.ToInt32(txbCanidad.Text), Convert.ToInt32(txtAgrePrecio.Text));
+
+            
 
                 foreach (DataGridViewRow rowMulti in dataGridViewVenta.Rows)
                 {
 
-                    rowMulti.Cells["Total"].Value = (Convert.ToDecimal(rowMulti.Cells["Stock"].Value) * Convert.ToDecimal(rowMulti.Cells["Precio"].Value)); 
+                    rowMulti.Cells["Total"].Value = (Convert.ToDecimal(rowMulti.Cells["Cantidad"].Value) * Convert.ToDecimal(rowMulti.Cells["Precio"].Value)); 
               
                 }
 
@@ -83,18 +103,28 @@ namespace ejemplo
                     suma += Convert.ToInt32(row.Cells["Total"].Value);
                 }
 
+
+                dataGridViewVenta.DataSource = table;
                 lPrecio.Text = suma.ToString();
 
 
-                dataGridViewVenta.DataSource = table;
+                        //Limpiar textbox
+                        txtAgrePorCode.Text = "0";
+                        txtAgreNombre.Text = "";
+                        txtAgreCategoria.Text = "";
+                        txtAgrePrecio.Text = "";
+                        txtAgreStock.Text = "";
+                        txbCanidad.Text = "";
 
 
-        }
+              }
+             }
+            }
             catch
             {
                 MessageBox.Show("Hay campos vacios", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-}
+            }        
+        }
 
         private void dataGridViewVenta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -104,27 +134,29 @@ namespace ejemplo
 
         private void btnAgreBuscar_Click(object sender, EventArgs e)
         {
-            conectarbd.Open();
-            SqlCommand cmd;
-            cmd = new SqlCommand("Select * from tableVentas where Codigo = @Codigo", conectarbd);
-            cmd.Parameters.AddWithValue("@Codigo", Convert.ToInt32(txtAgrePorCode.Text));
+            
+                conectarbd.Open();
+                SqlCommand cmd;
+                cmd = new SqlCommand("Select * from tableVentas where Codigo = @Codigo", conectarbd);
+                cmd.Parameters.AddWithValue("@Codigo", Convert.ToInt32(txtAgrePorCode.Text));
 
-            SqlDataReader registro = cmd.ExecuteReader();
-            if (registro.Read())
-            {
-                txtAgrePorCode.Text = registro["codigo"].ToString();
-                txtAgreNombre.Text = registro["nombreArticulo"].ToString();
-                txtAgrePrecio.Text = registro["precioCompra"].ToString();
-                txtAgreStock.Text = registro["Stock"].ToString();
-                txtAgreCategoria.Text = registro["Categoria"].ToString();
+                SqlDataReader registro = cmd.ExecuteReader();
+                if (registro.Read())
+                {
+                    txtAgrePorCode.Text = registro["codigo"].ToString();
+                    txtAgreNombre.Text = registro["nombreArticulo"].ToString();
+                    txtAgrePrecio.Text = registro["precioCompra"].ToString();
+                    txtAgreStock.Text = registro["Stock"].ToString();
+                    txtAgreCategoria.Text = registro["Categoria"].ToString();
 
-            }
-            else
-            {
-                MessageBox.Show("No se encontro el Articulo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro el Articulo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            
             conectarbd.Close();
-
+   
         }
 
         private void cargar()
@@ -143,6 +175,7 @@ namespace ejemplo
         private void btnSacarVenta_Click(object sender, EventArgs e)
         {
             Conectarse n = new Conectarse();
+
 
             if (dataGridViewVenta.SelectedRows.Count > 0)
             {
@@ -165,19 +198,28 @@ namespace ejemplo
 
                 }
             }
+
+            
         }
 
-        
+
+     
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-           
+
+            // Restar stock a la cantidad en la BD
+
+            conectarbd.Open();
+            cmd = new SqlCommand("UPDATE p SET p.Stock = (p.Stock - v.stock_cantidad) FROM tableVentas P INNER JOIN Ventas V ON (P.Codigo = V.id_Codigo)", conectarbd);
+            cmd.ExecuteNonQuery();
+            conectarbd.Close();
 
             if (MessageBox.Show("Ingresar otra Compra?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 txtAgrePorCode.Text = "0";
-                txtAgreNombre.Text = "0";
-                txtAgreCategoria.Text = "0";
+                txtAgreNombre.Text = "";
+                txtAgreCategoria.Text = "";
                 txtAgrePrecio.Text = "0";
                 txtAgreStock.Text = "0";
                 
@@ -187,8 +229,12 @@ namespace ejemplo
                 lPrecio.Text = "0";
                 textBox1.Text = "0";
                 lblNumeroVenta.Text = (Convert.ToInt32(lblNumeroVenta.Text) + 1).ToString();
+
             }
-         
+
+            
+
+
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -201,8 +247,8 @@ namespace ejemplo
             if (MessageBox.Show("Quiere Cerrar caja?, se reiniciara todo", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 txtAgrePorCode.Text = "0";
-                txtAgreNombre.Text = "0";
-                txtAgreCategoria.Text = "0";
+                txtAgreNombre.Text = "";
+                txtAgreCategoria.Text = "";
                 txtAgrePrecio.Text = "0";
                 txtAgreStock.Text = "0";
 
@@ -212,7 +258,7 @@ namespace ejemplo
                 lblVuelto.Text = "0";
                 lPrecio.Text = "0";
                 textBox1.Text = "0";
-                lblNumeroVenta.Text = "0";
+                lblNumeroVenta.Text = "1";
             }
 
             
@@ -236,12 +282,39 @@ namespace ejemplo
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            
+            conectarbd.Open();
+            SqlCommand cmd;
+            cmd = new SqlCommand("INSERT INTO Ventas (Total,stock_cantidad,fecha_venta,num_venta,id_codigo) values( @Total,@stock_cantidad,GETDATE(),@num_venta,@id_Codigo)", conectarbd);
+
+            try
+            {
+
+                foreach (DataGridViewRow row in dataGridViewVenta.Rows)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@Total", Convert.ToString(row.Cells["Total"].Value));
+                    cmd.Parameters.AddWithValue("@stock_cantidad", Convert.ToString(row.Cells["Cantidad"].Value));
+                    cmd.Parameters.AddWithValue("@num_venta", Convert.ToString(lblNumeroVenta.Text));
+                    cmd.Parameters.AddWithValue("@id_codigo", Convert.ToString(row.Cells["Codigo"].Value));
+                 
+                    cmd.ExecuteNonQuery();
+                }
+
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("error al agregar");
+            }
+
+            conectarbd.Close();
+
 
             int suma = 0;
             foreach (DataGridViewRow row in dataGridViewVenta.Rows)
             {
                 suma += Convert.ToInt32(row.Cells["Total"].Value);
-
 
             }
 
@@ -264,9 +337,16 @@ namespace ejemplo
             {
                 MessageBox.Show(ex.Message);
             }
+
+          
         }
 
         private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txbCanidad_TextChanged(object sender, EventArgs e)
         {
 
         }
