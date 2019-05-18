@@ -162,7 +162,17 @@ namespace ejemplo
 
         }
 
-      
+        private void button4_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<Resumen>();
+            button4.BackColor = Color.FromArgb(34, 41, 54);
+        }
+
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<Ayuda>();
+            btnAyuda.BackColor = Color.FromArgb(34, 41, 54);
+        }
 
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
         {
@@ -231,8 +241,14 @@ namespace ejemplo
 
             if (Application.OpenForms["verProductos"] == null)
                 btnVerProduct.BackColor = Color.FromArgb(22, 27, 36);
+
+            if (Application.OpenForms["Resumen"] == null)
+                btnVerProduct.BackColor = Color.FromArgb(22, 27, 36);
+
+            if (Application.OpenForms["Ayuda"] == null)
+                btnVerProduct.BackColor = Color.FromArgb(22, 27, 36);
         }
 
-        
+       
     }
 }

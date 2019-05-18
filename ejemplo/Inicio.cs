@@ -32,6 +32,7 @@ namespace ejemplo
         {
             InitializeComponent();
             conectarbd.ConnectionString = cadena;
+            cargarNumeroBoletas();
 
         }
      
@@ -56,7 +57,8 @@ namespace ejemplo
             table.Columns.Add("Cantidad", typeof(int));
             table.Columns.Add("Precio", typeof(int));           
             table.Columns.Add("Total", typeof(string));
-
+           // dataGridViewVenta.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+          
 
             dataGridViewVenta.DataSource = table;
         
@@ -165,8 +167,8 @@ namespace ejemplo
             DataTable dt = new DataTable();
             SqlCommand cmd;
             cmd = new SqlCommand("SELECT * FROM tableVentas", conectarbd);
-            cmd.ExecuteNonQuery();            
-          //  da.Fill(dt);
+            cmd.ExecuteNonQuery();
+            //  da.Fill(dt);
 
             dataGridViewVenta.DataSource = dt;
             conectarbd.Close();
@@ -203,38 +205,49 @@ namespace ejemplo
         }
 
 
-     
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        public void cargarNumeroBoletas()
         {
 
-            // Restar stock a la cantidad en la BD
-
-            conectarbd.Open();
-            cmd = new SqlCommand("UPDATE p SET p.Stock = (p.Stock - v.stock_cantidad) FROM tableVentas P INNER JOIN Ventas V ON (P.Codigo = V.id_Codigo)", conectarbd);
-            cmd.ExecuteNonQuery();
-            conectarbd.Close();
-
-            if (MessageBox.Show("Ingresar otra Compra?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            try
             {
-                txtAgrePorCode.Text = "0";
+                conectarbd.Open();
+                SqlCommand cmd;
+                cmd = new SqlCommand("select max(num_venta_dia) from cierreCaja ", conectarbd);
+             
+            int maxNum = Convert.ToInt32(cmd.ExecuteScalar());
+
+            lblNumeroVenta.Text = maxNum.ToString("D7");
+
+        
+        }
+            catch (Exception)
+            {
+                MessageBox.Show("error al mostrar");
+
+            }
+    conectarbd.Close();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {     
+
+            if (MessageBox.Show("Completar la Compra?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                txtAgrePorCode.Text = "";
                 txtAgreNombre.Text = "";
                 txtAgreCategoria.Text = "";
-                txtAgrePrecio.Text = "0";
-                txtAgreStock.Text = "0";
+                txtAgrePrecio.Text = "";
+                txtAgreStock.Text = "";
                 
-
                 table.Clear();
                 lblVuelto.Text = "0";
                 lPrecio.Text = "0";
-                textBox1.Text = "0";
-                lblNumeroVenta.Text = (Convert.ToInt32(lblNumeroVenta.Text) + 1).ToString();
-
+                textBox1.Text = "";
+                lblNumeroVenta.Text = (Convert.ToInt32(lblNumeroVenta.Text) + 1).ToString("D7");
+  
             }
-
-            
-
-
+            btnCancelar.Enabled = true;
+            btnLimpiar.Enabled = false;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -244,7 +257,24 @@ namespace ejemplo
 
         private void btnCerrarCaja_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Quiere Cerrar caja?, se reiniciara todo", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+             conectarbd.Open();
+            SqlCommand cmd;
+            cmd = new SqlCommand("INSERT INTO cierreCaja (num_venta_dia,fecha_cierre)values(@num_venta_dia, GETDATE())", conectarbd);
+            try
+            {            
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@num_venta_dia", Convert.ToString(lblNumeroVenta.Text));
+
+                    cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("error al guardar el numero de boletas emitidas");
+
+            }
+            conectarbd.Close();
+            if (MessageBox.Show("Quiere Cerrar caja?", "Alerta!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 txtAgrePorCode.Text = "0";
                 txtAgreNombre.Text = "";
@@ -254,11 +284,10 @@ namespace ejemplo
 
 
                 table.Clear();
-                table.Clear();
                 lblVuelto.Text = "0";
                 lPrecio.Text = "0";
                 textBox1.Text = "0";
-                lblNumeroVenta.Text = "1";
+               
             }
 
             
@@ -275,42 +304,11 @@ namespace ejemplo
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
-              
-
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
-        {
+        {           
             
-            conectarbd.Open();
-            SqlCommand cmd;
-            cmd = new SqlCommand("INSERT INTO Ventas (Total,stock_cantidad,fecha_venta,num_venta,id_codigo) values( @Total,@stock_cantidad,GETDATE(),@num_venta,@id_Codigo)", conectarbd);
-
-            try
-            {
-
-                foreach (DataGridViewRow row in dataGridViewVenta.Rows)
-                {
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@Total", Convert.ToString(row.Cells["Total"].Value));
-                    cmd.Parameters.AddWithValue("@stock_cantidad", Convert.ToString(row.Cells["Cantidad"].Value));
-                    cmd.Parameters.AddWithValue("@num_venta", Convert.ToString(lblNumeroVenta.Text));
-                    cmd.Parameters.AddWithValue("@id_codigo", Convert.ToString(row.Cells["Codigo"].Value));
-                 
-                    cmd.ExecuteNonQuery();
-                }
-
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("error al agregar");
-            }
-
-            conectarbd.Close();
-
-
             int suma = 0;
             foreach (DataGridViewRow row in dataGridViewVenta.Rows)
             {
@@ -326,6 +324,7 @@ namespace ejemplo
             catch
             {
                 MessageBox.Show("Coloque el monto con el que paga el cliente, no puede quedar vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                btnCancelar.Enabled = true;
             }
 
             try
@@ -338,7 +337,35 @@ namespace ejemplo
                 MessageBox.Show(ex.Message);
             }
 
-          
+            conectarbd.Open();
+            SqlCommand cmd;
+            cmd = new SqlCommand("insertarDetalle", conectarbd);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+
+                foreach (DataGridViewRow row in dataGridViewVenta.Rows)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@Total", Convert.ToString(row.Cells["Total"].Value));
+                    cmd.Parameters.AddWithValue("@stock_cantidad", Convert.ToString(row.Cells["Cantidad"].Value));
+                    cmd.Parameters.AddWithValue("@num_venta", Convert.ToString(lblNumeroVenta.Text));
+                    cmd.Parameters.AddWithValue("@id_codigo", Convert.ToString(row.Cells["Codigo"].Value));
+
+                    cmd.ExecuteNonQuery();
+                    btnCancelar.Enabled = false;
+                    btnLimpiar.Enabled = true;
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("error al agregar");
+                
+            }
+            conectarbd.Close();           
+            
+
         }
 
         private void label8_Click(object sender, EventArgs e)
@@ -347,6 +374,32 @@ namespace ejemplo
         }
 
         private void txbCanidad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewVenta_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+            foreach (DataGridViewRow rowMulti in dataGridViewVenta.Rows)
+            {
+
+                rowMulti.Cells["Total"].Value = (Convert.ToDecimal(rowMulti.Cells["Cantidad"].Value) * Convert.ToDecimal(rowMulti.Cells["Precio"].Value));
+
+            }
+
+            int suma = 0;
+            foreach (DataGridViewRow row in dataGridViewVenta.Rows)
+            {
+                suma += Convert.ToInt32(row.Cells["Total"].Value);
+            }
+
+
+            dataGridViewVenta.DataSource = table;
+            lPrecio.Text = suma.ToString();
+        }
+
+        private void lPrecio_Click(object sender, EventArgs e)
         {
 
         }

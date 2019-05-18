@@ -123,7 +123,7 @@ namespace ejemplo
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            
+            txtSumarStock.ReadOnly = false;
 
             if (dataGridViewAgregar.SelectedRows.Count > 0)
             {
@@ -174,10 +174,10 @@ namespace ejemplo
                
                     int Codigo = int.Parse(txtCodigo.Text);
                     String nombreArticulo = txtNombreArticulo.Text;
-                    int Stock = int.Parse(txtStock.Text);
+                    int Stock = int.Parse(txtStock.Text) + Convert.ToInt32(txtSumarStock.Text);
                     int precioCompra = int.Parse(txtPrecio.Text);
                     String categoria = txtCategoria.Text;
-
+                    
                     n.actualizarArticulo(Codigo, nombreArticulo, Stock, precioCompra, categoria);
 
                     MessageBox.Show("Datos actualizado");
@@ -187,8 +187,9 @@ namespace ejemplo
                     txtStock.Text = "";
                     txtPrecio.Text = "";
                     txtCategoria.Text = "";
+                    txtSumarStock.Text = "";
 
-                    mostrarDatos();
+                mostrarDatos();
                
 
             }
@@ -383,6 +384,34 @@ namespace ejemplo
         private void btnActualizarLista_Click(object sender, EventArgs e)
         {
             mostrarDatos();
+        }
+
+        private void txtSumarStock_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSumarStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Para obligar a que sólo se introduzcan números 
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+
+            }
+            else
+              if (Char.IsControl(e.KeyChar)) //permitir teclas de control como retroceso 
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                //el resto de teclas pulsadas se desactivan 
+                e.Handled = true;
+                return;
+            }
         }
     }
 }

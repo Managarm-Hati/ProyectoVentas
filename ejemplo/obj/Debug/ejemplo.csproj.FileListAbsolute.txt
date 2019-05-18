@@ -18,3 +18,5 @@ F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Inicial.resources
 F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.verProductos.resources
 F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
 F:\Proyectos visual estudio\ejemplo\ejemplo\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Resumen.resources
+F:\Proyectos visual estudio\ejemplo\ejemplo\obj\Debug\ejemplo.Ayuda.resources

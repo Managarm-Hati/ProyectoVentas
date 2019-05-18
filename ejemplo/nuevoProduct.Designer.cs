@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(nuevoProduct));
             this.txtCategoria = new System.Windows.Forms.TextBox();
             this.lCategoria = new System.Windows.Forms.Label();
@@ -45,6 +45,7 @@
             this.dataGridViewAgregar = new System.Windows.Forms.DataGridView();
             this.btnEditar = new System.Windows.Forms.Button();
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
+            this.lineShape7 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape6 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape5 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
@@ -55,6 +56,8 @@
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnActualizarLista = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtSumarStock = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAgregar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -132,7 +135,7 @@
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(41, 19);
             this.txtStock.TabIndex = 21;
-            this.txtStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStock_KeyPress);
             // 
             // txtNombreArticulo
@@ -220,23 +223,23 @@
             this.dataGridViewAgregar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
             this.dataGridViewAgregar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewAgregar.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAgregar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAgregar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewAgregar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewAgregar.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewAgregar.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewAgregar.GridColor = System.Drawing.Color.DimGray;
             this.dataGridViewAgregar.Location = new System.Drawing.Point(21, 41);
             this.dataGridViewAgregar.MultiSelect = false;
@@ -278,6 +281,7 @@
             this.shapeContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
+            this.lineShape7,
             this.lineShape6,
             this.lineShape5,
             this.lineShape4,
@@ -287,6 +291,17 @@
             this.shapeContainer1.Size = new System.Drawing.Size(1080, 612);
             this.shapeContainer1.TabIndex = 30;
             this.shapeContainer1.TabStop = false;
+            // 
+            // lineShape7
+            // 
+            this.lineShape7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineShape7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(144)))), ((int)(((byte)(71)))));
+            this.lineShape7.Name = "lineShape7";
+            this.lineShape7.SelectionColor = System.Drawing.Color.White;
+            this.lineShape7.X1 = 952;
+            this.lineShape7.X2 = 999;
+            this.lineShape7.Y1 = 227;
+            this.lineShape7.Y2 = 227;
             // 
             // lineShape6
             // 
@@ -393,7 +408,7 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(1030, 567);
+            this.pictureBox1.Location = new System.Drawing.Point(1036, 558);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(30, 33);
             this.pictureBox1.TabIndex = 31;
@@ -402,13 +417,44 @@
             // 
             // btnActualizarLista
             // 
-            this.btnActualizarLista.Location = new System.Drawing.Point(560, 500);
+            this.btnActualizarLista.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnActualizarLista.BackgroundImage")));
+            this.btnActualizarLista.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnActualizarLista.FlatAppearance.BorderSize = 0;
+            this.btnActualizarLista.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(27)))), ((int)(((byte)(36)))));
+            this.btnActualizarLista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizarLista.Location = new System.Drawing.Point(648, 500);
             this.btnActualizarLista.Name = "btnActualizarLista";
-            this.btnActualizarLista.Size = new System.Drawing.Size(118, 23);
+            this.btnActualizarLista.Size = new System.Drawing.Size(30, 30);
             this.btnActualizarLista.TabIndex = 32;
-            this.btnActualizarLista.Text = "Actualizar lista";
             this.btnActualizarLista.UseVisualStyleBackColor = true;
             this.btnActualizarLista.Click += new System.EventHandler(this.btnActualizarLista_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(919, 211);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(17, 17);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "+";
+            // 
+            // txtSumarStock
+            // 
+            this.txtSumarStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
+            this.txtSumarStock.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSumarStock.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSumarStock.ForeColor = System.Drawing.Color.White;
+            this.txtSumarStock.Location = new System.Drawing.Point(954, 206);
+            this.txtSumarStock.MaxLength = 3;
+            this.txtSumarStock.Name = "txtSumarStock";
+            this.txtSumarStock.ReadOnly = true;
+            this.txtSumarStock.Size = new System.Drawing.Size(46, 19);
+            this.txtSumarStock.TabIndex = 34;
+            this.txtSumarStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSumarStock.TextChanged += new System.EventHandler(this.txtSumarStock_TextChanged);
+            this.txtSumarStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSumarStock_KeyPress);
             // 
             // nuevoProduct
             // 
@@ -416,6 +462,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(41)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(1080, 612);
+            this.Controls.Add(this.txtSumarStock);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnActualizarLista);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnRegistrar);
@@ -471,5 +519,8 @@
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnActualizarLista;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtSumarStock;
+        private Microsoft.VisualBasic.PowerPacks.LineShape lineShape7;
     }
 }
